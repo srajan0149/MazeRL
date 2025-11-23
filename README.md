@@ -1,5 +1,5 @@
 
-# Maze RL — Visual Exploration & Final Path (Q-Learning)
+# Maze RL (Q-Learning)
 
 This project is an interactive web-based visualization of Q-Learning in a maze environment. Users can design mazes, train an agent using Q-Learning, and see the final optimal path after training.
 
