@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Maze RL — Explore & Final Path (Q-Learning)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Maze RL — Visual Exploration & Final Path (Q-Learning)</h1>
+      <div class="small">Left-click toggle wall · Shift+Left-click set goal · Right-click set start</div>
+    </header>
+
+    <div class="controls">
+      <label>Grid <input id="gridSize" type="number" value="6" min="2" max="15" style="width:64px"/></label>
+      <label>Cell px <input id="cellPx" type="number" value="36" min="12" max="72" style="width:64px"/></label>
+
+      <label>α <input id="alpha" type="range" min="0.01" max="1" step="0.01" value="0.5"/></label>
+      <label>γ <input id="gamma" type="range" min="0" max="0.99" step="0.01" value="0.95"/></label>
+      <label>ε <input id="epsilon" type="range" min="0" max="1" step="0.01" value="0.4"/></label>
+
+      <label>Episodes <input id="episodes" type="number" value="200" min="1" style="width:80px"/></label>
+
+      <button id="newGrid" class="ghost">New Grid</button>
+      <button id="clearAll" class="ghost">Clear Walls/Goals</button>
+
+      <button id="start">Start Train</button>
+      <button id="pause" class="ghost">Pause</button>
+      <button id="resetQ" class="ghost">Reset Q</button>
+      <button id="showPath" class="ghost">Show Final Path</button>
+      <button id="copyQ" class="ghost">Copy Q</button>
+      <button id="pasteQ" class="ghost">Paste Q</button>
+    </div>
+
+    <div class="layout" style="margin-top:12px;">
+      <div style="flex:1">
+        <canvas id="canvas"></canvas>
+        <div style="display:flex;gap:12px;margin-top:6px;align-items:center;">
+          <div class="small">Episode: <span id="episode">0</span></div>
+          <div class="small">Step (current ep): <span id="stepCount">0</span></div>
+          <div class="small">Last reward: <span id="lastReward">0</span></div>
+          <div class="small">Visited cells: <span id="visitedCount">0</span></div>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="info">
+          <div class="small"><strong>Legend</strong></div>
+          <div class="legend">
+            <div class="sw" style="background:#ffffff;border:1px solid #e6eefc"></div><div class="small">Free</div>
+            <div class="sw" style="background:#111827"></div><div class="small">Wall</div>
+            <div class="sw" style="background:#f59e0b"></div><div class="small">Goal (treasure)</div>
+            <div class="sw" style="background:#06b6d4"></div><div class="small">Start (agent)</div>
+            <div class="sw" style="background:rgba(99,102,241,0.9)"></div><div class="small">Final path</div>
+          </div>
+
+          <div style="height:10px"></div>
+          <div class="small"><strong>How to use</strong>
+            <ul>
+              <li>Click to add walls. Shift+click to set goal. Right-click sets start.</li>
+              <li>Start training — the particle will move each episode and visit heat expands.</li>
+              <li>After training press <em>Show Final Path</em> to overlay greedy route.</li>
+              <li>Use <strong>Reset Q</strong> to clear learned Q & counts (you can start again immediately).</li>
+            </ul>
+          </div>
+
+          <div style="height:8px"></div>
+          <div class="small">Q-table JSON (copy/paste)</div>
+          <textarea id="qText" placeholder="Press Copy Q to capture current Q-table JSON"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
